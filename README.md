@@ -7,11 +7,11 @@
 IMoE is a unique LLM architecture designed to maximize power without sacrificing efficiency. It's also intended to solve prevalent pain points that plague pioneers processing these problems.
 ## Section 2: How does it work at a very high level?
 It solves many things through many ways, but the basis of everything is the 3 core parts. They are trained separately, but all help each other in the final system:
-#### Classifier:
+### Classifier:
 - Classifier determines what categor(y/ies) the input fits to so it knows what expert to route to.
-#### Experts:
+### Experts:
 - Staying true to MoE, this architecture has experts, but they're trained on their specific category.
-#### Summarizer:
+### Summarizer:
 - Not a traditional summarizer. It's something that can take abstract concepts and ground them.
 - For example, if an IMoE model is asked to code, and one expert simply says to code, and the other gives some constraints, the summarizer must code within those constraints.
 ## Section 3: Deep dive for the nerds (like me):
