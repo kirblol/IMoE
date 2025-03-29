@@ -5,12 +5,15 @@
 - This repo is open source because it fuels the advancement of AI much faster.
 ## Section 1: What is IMoE?
 IMoE is a unique LLM architecture designed to maximize power without sacrificing efficiency. It's also intended to solve prevalent pain points that plague pioneers processing these problems.
-## Section 2: How does it work?
+## Section 2: How does it work at a very high level?
 It solves many things through many ways, but the basis of everything is the 3 core parts. They are trained separately, but all help each other in the final system:
 ### Classifier:
-- Classifier (unsupervised) discovers num_C categories (not manually defined) on its own from your training data, increasing accuracy and ease of use.
-- Classifier then is run on training data, separating it into each category. If an example/sample belongs to multiple categories according to the classifier, it's considered to be in each category. If it's not in a category, it goes in every category.
-- Classifier determines if it's in a category by seeing if it crosses a threshold, t_C.
+- Classifier determines what categor(y/ies) the input fits to so it knows what expert to route to.
 ### Experts:
-- Staying true to MoE, this architecture has experts.
-- Many things are different, however.
+- Staying true to MoE, this architecture has experts, but they're trained on their specific category.
+### Summarizer:
+- Not a traditional summarizer. It's something that can take abstract concepts and ground them.
+- For example, if an IMoE model is asked to code, and one expert simply says to code, and the other gives some constraints, the summarizer must code within those constraints.
+## Section 3: Deep dive for the nerds (like me):
+So that was an extremely high level overview of it. However, it's just the surface. Let's dive head first into exactly how everything works:
+### Classifier
