@@ -55,6 +55,10 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 #### Summarizer (LSTM):
 1. When all expert outputs are gathered, the summarizer grounds them and gives a final response, keeping everything the experts wanted while also elaborating.
 2. If the summarizer detects that the experts disagree or have gone off track via the intent mechanism, it ignores everything and asks for clarification.
+## Optimizations:
+- Lazy loading: only loads experts when necessary.
+- Pruning: if an expert doesn't contribute 3/10 times, reset every 10 feed-forwards during training, it is pruned.
+- Higher-confidence experts have more influence than lower-confidence ones
 ## Shortcomings:
 - Can't train as you chat because experts might diverge from categories due to blurry category lines.
 - Experts can't inherit knowledge from each other during training, although it is the point.
