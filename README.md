@@ -81,5 +81,5 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 - t_C_base: The user-defined base threshold value.
 - k: Scaling factor in the threshold equation.
 - c_S: A value between 0 and 1 giving the complexity of the input, determined by the logistic regression model.
-# One final note:
+## One final note:
 Thank you to anyone who spent their time reading this. Code implementation is coming soon!
