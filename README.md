@@ -38,9 +38,9 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 - Receives every expert’s outputs.
 - Resolves contradictions.
 - Understands abstract instructions and can put them into human-understandable words.
-- Detects intent via embeddings.
+- Detects intent via embeddings. Since it's a neural network trained to understand everything, it can use those token embeddings to realize intent.
 - Makes the final response coherent and keeps all the important and fine details the experts spat out.
-3. Because a summarizer itself might not be good enough for coding in itself, we LoRA fine-tuned the summarizer to get good at translating abstract text into code. Based on whether the summarizer detects coding intent, the LoRA version is used.
+3. Because a summarizer itself might not be good enough for coding in itself, I will LoRA fine-tune the summarizer to get good at translating abstract text into code. Based on whether the summarizer detects coding intent, the LoRA version is used.
 ### Inference Steps:
 #### Classifier (KNN-inspired):
 1. Your input is run through the classifier, and it detects which categories. All edge cases are handled through these 3 checks:
