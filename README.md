@@ -34,18 +34,18 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 6. Each expert is trained by minimizing loss.
 #### Summarizer (LSTM):
 1. Trained autoregressively like usual.
-2. More than just a summarizer, these are the things it does in order:
-  1. Receives every expert’s outputs.
-  2. Resolves contradictions.
-  3. Understands abstract instructions and can put them into human-understandable words.
-  4. Makes the final response coherent.
+2. More than just a summarizer, these are the things it does:
+- Receives every expert’s outputs.
+- Resolves contradictions.
+- Understands abstract instructions and can put them into human-understandable words.
+- Makes the final response coherent.
 3. Because a summarizer itself might not be good enough for coding in itself, we LoRA fine-tuned the summarizer to get good at translating abstract text into code.
 ### Inference Steps:
 #### Classifier (KNN):
 1. Your input is run through the classifier, and it detects which categories. All edge cases are handled through these 3 checks:
-  1. If it fits one or multiple categories, it's routed to those experts.
-  2. If it fits none, all experts engage.
-  3. If two categories are within 0.1 of each other in the softmax scores, expert cross-talk is allowed.
+- If it fits one or multiple categories, it's routed to those experts.
+- If it fits none, all experts engage.
+- If two categories are within 0.1 of each other in the softmax scores, expert cross-talk is allowed.
 2. Yeah, it has very few steps.
 #### Experts (LSTM):
 
