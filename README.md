@@ -19,7 +19,7 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 ### Training Steps:
 #### Classifier (KNN-inspired):
 1. First, you input the dataset from Huggingface or a txt corpus.
-2. Next, token embeddings are learned (in this implementation, token embeddings from scratch were used, but it's one of those things that some people will benefit more than others from different approaches, so I encourage you to modify this step as you see fit).
+2. Next, token embeddings are learned (in this upcoming implementation, token embeddings from scratch were used, but it's one of those things that some people will benefit more than others from different approaches, so I encourage you to modify this step as you see fit).
 3. Then, the classifier looks through the data unsupervised, discovering n_C categories on its own. It does this by putting every example/sample, the entire thing, on the plane and applying K-Means clustering once. Where the example/sample is put is the mean embedding of every token inside the sentence.
 4. It decides which category an example/sample is in by seeing how close it is to each category via cosine similarity in the embedding space. The logits' signs are flipped, and softmax is applied to get the confidence distribution.
 5. An example/sample is considered in a category if it's above t_C. If it's not in any category, it goes to all experts.
