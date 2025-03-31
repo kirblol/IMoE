@@ -58,7 +58,7 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 - No rewards are given to the generators for the uninterrupted message.
 - If the discriminator can tell that it's interrupted, both generators are given a heavy penalty. If not, they're given a heavy reward.
 - This is all fine-tuning vis LoRA, so it can save compute by only activating once cross-talk engages.
-- Then, during inference, this equation determines whether the model interrupts or not: P_interrupt = epsilon(((C^2 * C^alpha * log(T_since))/(I_recent * beta)) - shr)
+- Then, during inference, this equation determines whether the model interrupts or not: P_interrupt = epsilon(((C^2 * C^alpha * log(T_since))/(I_recent * beta)) - shr).
 - To determine if it interrupts, Bernoulli sampling is employed.
 #### Summarizer (SSM):
 1. When all expert outputs are gathered, the summarizer grounds them and gives a final response, keeping everything the experts wanted while also elaborating.
@@ -87,6 +87,12 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 - TCN: 
 - Linear Attention: 
 - SSM: 
+- C: Confidence.
+- Alpha: Scaling factor for confidence.
+- I_recent: Number of consecutive interruptions by the expert.
+- T_since: Turns since the expert last interrupted.
+- Beta: Scaling constant for penalties.
+- Shr: The amount to shift the epsilon by.
 - n_C: Number of categories.
 - n_T: Number of turns during expert cross-talk.
 - t_C: Threshold value for selecting experts.
