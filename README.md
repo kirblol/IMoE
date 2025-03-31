@@ -4,7 +4,7 @@
 - Architecture by a single 14-year-old with a vision, code made by Claude 3.7 Sonnet via API, as a means of implementation.
 - This repo is open source because it fuels the advancement of AI much faster.
 ## Section 1: What is IMoE?
-IMoE is a unique LLM architecture designed to maximize power without sacrificing efficiency. It's also intended to solve prevalent pain points that plague pioneers processing these problems.
+IMoE is a unique LLM framework designed to maximize power without sacrificing efficiency. It's also intended to solve prevalent pain points that plague pioneers processing these problems.
 ## Section 2: How does it work at a very high level?
 It solves many different things in many different ways, but the basis of everything is the 3 core parts. They are trained separately, but all help each other in the final system:
 ### Classifier:
@@ -57,15 +57,15 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 - The discriminator sees if it can tell if it was interrupted or not. It's fed both the uninterrupted first expert's response and the interrupted response, but separately.
 - No rewards are given to the generators for the uninterrupted message.
 - If the discriminator can tell that it's interrupted, both generators are given a heavy penalty. If not, they're given a heavy reward.
-- This is all fine-tuning vis LoRA, so it can save compute by only activating once cross-talk engages.
+- This is all fine-tuning via LoRA, so it can save compute by only activating once cross-talk engages.
 - Then, during inference, this equation determines whether the model interrupts or not: P_interrupt = epsilon(((C^2 * C^alpha * log(T_since))/(I_recent * beta)) - shr).
-- To determine if it interrupts, Bernoulli sampling is employed.
+- Bernoulli sampling is employed to determine if it interrupts.
 #### Summarizer (SSM):
 1. When all expert outputs are gathered, the summarizer grounds them and gives a final response, keeping everything the experts wanted while also elaborating.
 2. If the summarizer detects that the experts disagree or have gone off track via the intent mechanism, it ignores everything and asks for clarification.
 ## Optimizations:
-- Lazy loading: only loads experts when necessary.
-- Pruning: if an expert doesn't contribute 3/10 times, reset every 10 feed-forwards during training, it is pruned.
+- Lazy loading: Only loads experts when necessary.
+- Pruning: Ff an expert doesn't contribute 3/10 times, reset every 10 feed-forwards during training, it is pruned.
 - Higher-confidence experts have more influence than lower-confidence ones
 ## Shortcomings:
 - Can't train as you chat because experts might diverge from categories due to blurry category lines.
