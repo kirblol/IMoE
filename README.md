@@ -51,7 +51,7 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 #### Experts (TCN + Linear Attention):
 1. First, the inputs are run through the respective experts.
 2. Then, the summarizer consolidates everything the experts say, explained later.
-3. During cross-talk, the experts can interrupt each other. Here's how it works:
+3. During cross-talk, the experts can interrupt each other. Here's how it works/is trained, because I think this doesn't fit under training. The actual cross-talking is inference only:
 - Any two experts are put in a GAN training regimen, but both of them are generators.
 - The first one starts talking, then the second one tries to interrupt fluently.
 - The discriminator sees if it can tell if it was interrupted or not. It's fed both the uninterrupted first expert's response and the interrupted response, but separately.
