@@ -17,11 +17,11 @@ It solves many different things in many different ways, but the basis of everyth
 ## Section 3: Deep dive for the nerds (like me):
 Now that the surface jump is done, let's dive headfirst into exactly how everything works:
 ### Training Steps:
-#### Classifier (Learned Classifier):
+#### Classifier (KNN-Inspired):
 1. First, you input the dataset from Huggingface or a txt corpus.
 2. Next, token embeddings are learned (in this upcoming implementation, token embeddings from scratch were used, but it's one of those things that some people will benefit more than others from different approaches, so I encourage you to modify this step as you see fit).
-3. Then, the classifier looks through the data unsupervised, discovering n_C categories on its own.
-4. It decides which category an example/sample is in by confidence.
+3. Then, the classifier looks through the data unsupervised, discovering n_C categories on its own. It does this by putting every example/sample, the entire thing, on the plane and applying K-Means clustering once. Where the example/sample is put is the mean embedding of every token inside the sentence.
+4. It decides which category an example/sample is in by seeing how close it is to each category via cosine similarity in the embedding space. The logits' signs are flipped, and softmax is applied to get the confidence distribution.
 5. An example/sample is considered in a category if it's above t_C. If it's not in any category, it goes to all experts.
 6. t_C's baseline value is decided by the user, but a logistic regression model (same deal with the token embeddings) scores the complexity of the input. The equation is this: t_C = t_C_base * (1 - log(1 + k * c_S) / log(1 + k))
 8. After training, the classifier is left alone and never touched again.
@@ -42,7 +42,7 @@ Now that the surface jump is done, let's dive headfirst into exactly how everyth
 - Makes the final response coherent and keeps all the important and fine details the experts spat out.
 3. Because a summarizer itself might not be good enough for coding in itself, I will LoRA fine-tune the summarizer to get good at translating abstract text into code. Based on whether the summarizer detects coding intent, the LoRA version is used.
 ### Inference Steps:
-#### Classifier (Learned Classifier):
+#### Classifier (KNN-Inspired):
 1. Your input is run through the classifier, and it detects which categories. All edge cases are handled through these 3 checks:
 - If it fits one or multiple categories, it's routed to those experts.
 - If it fits none, all experts engage.
